@@ -10,18 +10,19 @@ import re
 
 
 #Set the bus station from pid.cz/zastavkova-tabla/
-URL = 'https://pid.cz/zastavkova-tabla/?stop=Sidli%C5%A1t%C4%9B+Male%C5%A1ice&stanoviste=&tab=1'
+URL = 'https://pid.cz/zastavkova-tabla/?stop=Sídliště+Malešice&tab=1'
 headers = {"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0'}
 
 
 
 def Loop_Ticket_number():
-    
     #GETs content from PID, Parses it and creates next_hour.txt where all buses are nicely parsed (it is always next 30 buses for the station)
     
     page = requests.get(URL, headers=headers)
     soup= BeautifulSoup(page.content, 'html.parser')
-    buses_arrival = soup.findAll("tr", {"class": "more-info-init"})
+    buses_arrival  = soup.find_all("tr", class_="more-info-init")
+    print(soup)
+    print(buses_arrival)
     
 # Input example for parsing
 #
@@ -79,6 +80,6 @@ def Loop_Ticket_number():
 # returns list of lists [21:42, 225,Vypich,A,0]
 
 if __name__ == '__main__':
-    Loop_Ticket_number()
+    print(Loop_Ticket_number())
 
 
